@@ -5,8 +5,8 @@ import random
 from datetime import datetime
 import json
 
-# this keeps track of the creation queries that have been made under the developers OpenAPI key and allows further development of the tool. No further data is tracked.
-class Save:    
+# this keeps track of the queries that have been made under the developers OpenAPI key and allows further development of the tool.
+class Save:
     @staticmethod
     def save_on_redis(zimreq):
         headers = {
@@ -17,9 +17,15 @@ class Save:
             return ''.join([random.choice('23456789abcdefghjklmnopqrstuvwxyz') for _ in range(8)])
 
         key = "zim-gen-req:" + generate_key()
-        body = {"created":f"{datetime.now()}","requested":f"{zimreq}"}
-       
+        body = {
+            "created": f"{datetime.now()}",
+            "requested": f"{zimreq}",
+            "sender": {
+                "X-Forwarded-For": requests.utils.get_environ_info("HTTP_X_FORWARDED_FOR", ""),
+                "User-Agent": requests.utils.get_environ_info("HTTP_USER_AGENT", ""),
+                "Referer": requests.utils.get_environ_info("HTTP_REFERER", "")
+            }
+        }
         response = requests.post(f'https://fastapi-redis-crud.vercel.app/create_dict?key={key}', headers=headers, data=json.dumps(body))
 
         print(response.json())
-        
