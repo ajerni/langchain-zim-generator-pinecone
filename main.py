@@ -20,10 +20,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 with st.sidebar:
-    st.title('langchain-zim-generator-pinecone')
+    st.title('ZIM Generator')
     st.markdown('''
                 ## About
-                This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the documentation from https://zimjs.com/docs.html
+                This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the corresponding documentation on https://zimjs.com/docs.html
                 
                 ## Source code:
                 [github.com/ajerni/langchain-zim-generator-pinecone](https://github.com/ajerni/langchain-zim-generator-pinecone)

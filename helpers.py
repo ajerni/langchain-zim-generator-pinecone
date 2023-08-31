@@ -5,7 +5,7 @@ import random
 from datetime import datetime
 import json
 
-# this keeps track of the queries that have been made under the developers OpenAPI key and allows further development of the tool.
+# this keeps track of the queries that have been made under the developers OpenAI key and allows further development of the tool.
 class Save:
     @staticmethod
     def save_on_redis(zimreq):
