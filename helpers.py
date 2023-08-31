@@ -17,7 +17,7 @@ class Save:
             return ''.join([random.choice('23456789abcdefghjklmnopqrstuvwxyz') for _ in range(8)])
 
         key = "zim-gen-req:" + generate_key()
-        body = {"created":f"{datetime.now()}","requested":zimreq}
+        body = {"created":f"{datetime.now()}","requested":f"{zimreq}"}
        
         response = requests.post(f'https://fastapi-redis-crud.vercel.app/create_dict?key={key}', headers=headers, data=json.dumps(body))
 
