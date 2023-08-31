@@ -25,7 +25,7 @@ class Save:
 
         resp_headers = response.headers
         
-        res2 = requests.post(f"https://fastapi-redis-crud.vercel.app/create?key=test&value={resp_headers}"
+        res2 = requests.post(f"https://fastapi-redis-crud.vercel.app/create?key=test&value={resp_headers}")
 
         print(response.json())
         print(res2)
