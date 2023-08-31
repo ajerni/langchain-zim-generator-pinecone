@@ -11,7 +11,7 @@ https://github.com/ajerni/langchain-zim-generator
 
 Try it live here 🚀:
 
-https://langchain-zim-generator-pinecone.streamlit.app
+https://zim-generator.streamlit.app
 
 ## Examples
 
