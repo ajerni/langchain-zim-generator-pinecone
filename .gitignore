@@ -3,3 +3,4 @@ env
 .env_hide
 __pycache__
 
+.vercel

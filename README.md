@@ -1,7 +1,7 @@
-# langchain-zim-generator
+# langchain-zim-generator-pinecone
 
 This python script uses langchain and OpenAI to create an index.html file containing ZIM code.
-It takes the whole zimdocs.txt file (thanks to Dr. Abstract - https://zimjs.com/docs.html), splits it into smaller pieces that are embedded in a vectorsore. The query is placed in the same vectorstore and returns similar chunks from the documentation, from which a ZIM code is generated using some very clever 😉 prompt engineering.
+It takes the whole zimdocs.txt file (thanks to Dr. Abstract - https://zimjs.com/docs.html), splits it into smaller pieces that are embedded in a vectorsore. The query is placed in the same vectorstore and returns similar chunks from the documentation, from which a ZIM code is generated using some very clever 😉 prompt engineering. Vectorestore hosted at pinecone. Therefore alseo OpenAI API keys from free plans should work, because the embeddings into the vectorstore are already done.
 
 ## Examples
 
