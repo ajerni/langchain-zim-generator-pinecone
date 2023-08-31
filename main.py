@@ -26,7 +26,7 @@ with st.sidebar:
                 This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the corresponding documentation on https://zimjs.com/docs.html
                 
                 ## Source code 💾
-                [github.com/ajerni/langchain-zim-generator-pinecone](https://github.com/ajerni/langchain-zim-generator-pinecone)
+                [github.com/ajerni](https://github.com/ajerni/langchain-zim-generator-pinecone)
     
                 ## Credits 🧡
                 Dr. Abstract for his amazing ZIM: https://zimjs.com 
