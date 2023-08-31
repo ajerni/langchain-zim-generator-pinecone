@@ -40,7 +40,7 @@ def main():
     st.subheader("Use ZIM terms like circle, rectangle, ... see [📄](https://zimjs.com/docs.html)")
     st.markdown('''
                 :blue[Examples:]
-                - A blue rectangle. Center it on stage
+                - a draggable blue rectangle centered on stage
                 - 3 circles within each other. Biggest red, middle green, smallest black
                 - use circles and rectangles to build something that looks like an apple
                 - use an emitter that emits pink circles
