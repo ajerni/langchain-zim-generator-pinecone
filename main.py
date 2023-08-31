@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import os
+from connections.redis_db import REDIS_CLIENT as r
+from helpers import Save
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
 from langchain.chains.question_answering import load_qa_chain
@@ -22,8 +24,10 @@ with st.sidebar:
     st.title('langchain-zim-generator-pinecone')
     st.markdown('''
                 ## About
-    This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html
-    - Source code: [github.com/ajerni/langchain-zim-generator](https://github.com/ajerni/langchain-zim-generator-pinecone)
+                This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the documentation from https://zimjs.com/docs.html
+                
+                ## Source code:
+                [github.com/ajerni/langchain-zim-generator-pinecone](https://github.com/ajerni/langchain-zim-generator-pinecone)
     ''')
     
     api_key = os.getenv("OPENAI_API_KEY")
@@ -34,15 +38,16 @@ def main():
     st.write("Use ZIM terms like circle, rectangle, ... see [ZIM Docs](https://zimjs.com/docs.html)")
     st.markdown('''
                 Examples:
-                - a blue rectangle centered on stage
+                - A blue rectangle. Center it on stage
                 - 3 circles within each other. Biggest red, middle green, smallest black
                 - use circles and rectangles to build something that looks like an apple
-                - use an emitter to create an animation of a firework
+                - use an emitter that emits pink circles
                 - etc.
                 ''')
     query = st.text_input('Enter what you want the AI to build:')
 
     if query:
+        Save.save_on_redis(query)
         results = generateZIMcode(query)
         st.code(results, language='html')
         components.html(results, width=512, height=384)
@@ -62,7 +67,7 @@ def generateZIMcode(query):
         environment=os.getenv("PINECONE_ENV"),  # next to api key in console
     )
 
-    ## *** this part was only needed once to create the index in pinecone ***
+    ## *** this part was only needed once to create the index in pinecone and save the embeddings in the vectorstore ***
 
     # loader = TextLoader("zimdocs.txt")
     # documents = loader.load()
