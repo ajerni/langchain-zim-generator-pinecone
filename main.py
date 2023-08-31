@@ -1,7 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import os
-from connections.redis_db import REDIS_CLIENT as r
 from helpers import Save
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
