@@ -24,11 +24,9 @@ with st.sidebar:
                 ## About
     This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html
     - Source code: [github.com/ajerni/langchain-zim-generator](https://github.com/ajerni/langchain-zim-generator-pinecone)
-    
-    ### The app needs a valid OpenAI Key to work. Get your own on [OpenAI](https://platform.openai.com/account/api-keys)
     ''')
     
-    api_key = st.text_input('OpenAI API key', type='password')
+    api_key = os.getenv("OPENAI_API_KEY")
 
 def main():
     
