@@ -20,14 +20,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 with st.sidebar:
-    st.title('ZIM Generator')
+    st.title('💫 ZIM Generator 🔮')
     st.markdown('''
-                ## About
+                ## About 🔥 
                 This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the corresponding documentation on https://zimjs.com/docs.html
                 
-                ## Source code:
+                ## Source code 💾
                 [github.com/ajerni/langchain-zim-generator-pinecone](https://github.com/ajerni/langchain-zim-generator-pinecone)
-    ''')
+    
+                ## Credits 🧡
+                Dr. Abstract for his amazing ZIM: https://zimjs.com 
+                ''')
     
     api_key = os.getenv("OPENAI_API_KEY")
 
@@ -43,7 +46,7 @@ def main():
                 - use an emitter that emits pink circles
                 - etc.
                 ''')
-    query = st.text_input('Enter what you want the AI to build:')
+    query = st.text_input('💬 Enter what you want the AI to build:')
 
     if query:
         Save.save_on_redis(query)
