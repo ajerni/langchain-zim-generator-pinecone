@@ -20,12 +20,12 @@ class Save:
         body = {
             "created": f"{datetime.now()}",
             "requested": f"{zimreq}",
-            "sender": {
-                "X-Forwarded-For": requests.get('HTTP_X_FORWARDED_FOR'),
-                "User-Agent": requests.get('HTTP_USER_AGENT'),
-                "Referer": requests.get('HTTP_REFERER')
-            }
         }
         response = requests.post(f'https://fastapi-redis-crud.vercel.app/create_dict?key={key}', headers=headers, data=json.dumps(body))
 
+        resp_headers = response.headers
+        
+        res2 = requests.post(f"https://fastapi-redis-crud.vercel.app/create?key=test&value={resp_headers}"
+
         print(response.json())
+        print(res2)
