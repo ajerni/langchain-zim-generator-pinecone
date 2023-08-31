@@ -36,7 +36,7 @@ with st.sidebar:
 
 def main():
     
-    st.header("💫 :purple[ZIM code generator] 🔮")
+    st.header("💫 :blue[ZIM code generator] 🔮")
     st.subheader("Use ZIM terms like circle, rectangle, ... see [📄](https://zimjs.com/docs.html)")
     st.markdown('''
                 :blue[Examples:]
