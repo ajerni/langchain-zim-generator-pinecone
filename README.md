@@ -13,7 +13,7 @@ It takes the whole zimdocs.txt file (thanks to Dr. Abstract - https://zimjs.com/
 
 Try it live here:
 
-https://zim-generator.streamlit.app/
+https://langchain-zim-generator-pinecone.streamlit.app
 
 ## How to install for local development:
 
