@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 with st.sidebar:
-    st.title('💫 ZIM Generator 🔮')
+    st.title('ZIM Generator')
     st.markdown('''
                 ## About 🔥 
                 This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the corresponding documentation on https://zimjs.com/docs.html
@@ -36,8 +36,8 @@ with st.sidebar:
 
 def main():
     
-    st.header("ZIM code generator")
-    st.write("Use ZIM terms like circle, rectangle, ... see [ZIM Docs](https://zimjs.com/docs.html)")
+    st.header("💫 ZIM code generator 🔮")
+    st.write("Use ZIM terms like circle, rectangle, ... see 📄[ZIM Docs](https://zimjs.com/docs.html)")
     st.markdown('''
                 Examples:
                 - A blue rectangle. Center it on stage
