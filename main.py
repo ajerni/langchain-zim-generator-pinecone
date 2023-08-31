@@ -37,7 +37,7 @@ with st.sidebar:
 def main():
     
     st.header("💫 ZIM code generator 🔮")
-    st.subheader("Use ZIM terms like circle, rectangle, ... see [ZIM Docs](https://zimjs.com/docs.html)📄")
+    st.subheader("Use ZIM terms like circle, rectangle, ... see [📄](https://zimjs.com/docs.html)")
     st.markdown('''
                 Examples:
                 - A blue rectangle. Center it on stage
