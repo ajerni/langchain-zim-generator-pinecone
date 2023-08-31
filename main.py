@@ -15,9 +15,8 @@ from langchain.prompts.chat import (
 # from langchain.text_splitter import RecursiveCharacterTextSplitter
 # from langchain.document_loaders import TextLoader
 
-# # only needed for local development with .env fiel
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 with st.sidebar:
     st.title('langchain-zim-generator-pinecone')
@@ -61,21 +60,21 @@ def generateZIMcode(query):
 
     index_name = "zimdocs"
 
+    # import pinecone
+    import pinecone
+
+    # initialize pinecone
+    pinecone.init(
+        api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
+        environment=os.getenv("PINECONE_ENV"),  # next to api key in console
+    )
+
     ## *** this part was only needed once to create the index in pinecone ***
 
     # loader = TextLoader("zimdocs.txt")
     # documents = loader.load()
     # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     # docs = text_splitter.split_documents(documents)
-
-    # # import pinecone
-    # import pinecone
-
-    # # initialize pinecone
-    # pinecone.init(
-    #     api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
-    #     environment=os.getenv("PINECONE_ENV"),  # next to api key in console
-    # )
 
     # # First, check if our index already exists. If it doesn't, create it
     # if index_name not in pinecone.list_indexes():
@@ -90,6 +89,7 @@ def generateZIMcode(query):
     ## *** end of initial creation of the vectorestore at pinecone ***
 
     # if the index already exists, you can load it like this:
+   
     vectorstore = Pinecone.from_existing_index(index_name, embeddings)
 
     llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0)
@@ -143,3 +143,4 @@ def generateZIMcode(query):
 
 if __name__ == '__main__':
     main()
+    
