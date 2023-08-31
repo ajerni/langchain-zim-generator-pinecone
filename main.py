@@ -43,14 +43,9 @@ def main():
     query = st.text_input('Enter what you want the AI to build:')
 
     if query:
-        if api_key:
-            os.environ['OPENAI_API_KEY'] = api_key
-            results = generateZIMcode(query)
-            st.code(results, language='html')
-            components.html(results, width=512, height=384)
-            os.environ['OPENAI_API_KEY'] = ""
-        else:
-            st.error("Please enter a valid OpenAI API key")
+        results = generateZIMcode(query)
+        st.code(results, language='html')
+        components.html(results, width=512, height=384)
 
 def generateZIMcode(query):
     
