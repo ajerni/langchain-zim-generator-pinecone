@@ -2,7 +2,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chat_models import ChatOpenAI
@@ -12,16 +11,20 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.document_loaders import TextLoader
-from dotenv import load_dotenv
-load_dotenv()
+# # only needed for initial creation of the embeddings into the vectorsrore:
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain.document_loaders import TextLoader
+
+# # only needed for local development with .env fiel
+# from dotenv import load_dotenv
+# load_dotenv()
 
 with st.sidebar:
-    st.title('langchain-zim-generator')
+    st.title('langchain-zim-generator-pinecone')
     st.markdown('''
                 ## About
     This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html
-    - Source code: [github.com/ajerni/langchain-zim-generator](https://github.com/ajerni/langchain-zim-generator)
+    - Source code: [github.com/ajerni/langchain-zim-generator](https://github.com/ajerni/langchain-zim-generator-pinecone)
     
     ### The app needs a valid OpenAI Key to work. Get your own on [OpenAI](https://platform.openai.com/account/api-keys)
     ''')
@@ -34,12 +37,11 @@ def main():
     st.write("Use ZIM terms like circle, rectangle, ... see [ZIM Docs](https://zimjs.com/docs.html)")
     st.markdown('''
                 Examples:
-                - a text label showing the text "Hello"
+                - a blue rectangle centered on stage
                 - 3 circles within each other. Biggest red, middle green, smallest black
-                - an input text field with a label "enter your name" beside each other
-                - a green circle centered on the stage and moved by 200px to the right
                 - use circles and rectangles to build something that looks like an apple
                 - use an emitter to create an animation of a firework
+                - etc.
                 ''')
     query = st.text_input('Enter what you want the AI to build:')
 
@@ -54,40 +56,44 @@ def main():
             st.error("Please enter a valid OpenAI API key")
 
 def generateZIMcode(query):
-    loader = TextLoader("zimdocs.txt")
-    documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    docs = text_splitter.split_documents(documents)
-
+    
     embeddings = OpenAIEmbeddings()
-
-    import pinecone
-
-    # initialize pinecone
-    pinecone.init(
-        api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
-        environment=os.getenv("PINECONE_ENV"),  # next to api key in console
-    )
 
     index_name = "zimdocs"
 
-    # First, check if our index already exists. If it doesn't, we create it
-    if index_name not in pinecone.list_indexes():
-    # we create a new index
-        pinecone.create_index(
-        name=index_name,
-        metric='cosine',
-        dimension=1536  
-    )
+    ## *** this part was only needed once to create the index in pinecone ***
 
-    vectorstore = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+    # loader = TextLoader("zimdocs.txt")
+    # documents = loader.load()
+    # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    # docs = text_splitter.split_documents(documents)
 
-    # if you already have an index, you can load it like this
-    # vectorstore = Pinecone.from_existing_index(index_name, embeddings)
+    # # import pinecone
+    # import pinecone
+
+    # # initialize pinecone
+    # pinecone.init(
+    #     api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
+    #     environment=os.getenv("PINECONE_ENV"),  # next to api key in console
+    # )
+
+    # # First, check if our index already exists. If it doesn't, create it
+    # if index_name not in pinecone.list_indexes():
+    #     pinecone.create_index(
+    #     name=index_name,
+    #     metric='cosine',
+    #     dimension=1536  
+    # )
+
+    # vectorstore = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+
+    ## *** end of initial creation of the vectorestore at pinecone ***
+
+    # if the index already exists, you can load it like this:
+    vectorstore = Pinecone.from_existing_index(index_name, embeddings)
 
     llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0)
 
-    # wenn nicht klappt: docs[0].page_content
     similars = vectorstore.similarity_search(query=query, k=3)
     qa_chain = load_qa_chain(llm=llm, chain_type="stuff")
     response = qa_chain.run(input_documents=similars, question=query)
