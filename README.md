@@ -3,7 +3,7 @@
 This App uses langchain and OpenAI to create an index.html file containing ZIM code.
 This version has the embeddings hosted in a vectorestore at Pinecone.
 
-Here is a development version using FAISS vectorstory in-memory:
+Here is a development version using FAISS vectorstor in-memory:
 
 https://github.com/ajerni/langchain-zim-generator
 
