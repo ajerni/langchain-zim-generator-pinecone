@@ -21,9 +21,9 @@ class Save:
             "created": f"{datetime.now()}",
             "requested": f"{zimreq}",
             "sender": {
-                "X-Forwarded-For": requests.utils.get_environ_info("HTTP_X_FORWARDED_FOR", ""),
-                "User-Agent": requests.utils.get_environ_info("HTTP_USER_AGENT", ""),
-                "Referer": requests.utils.get_environ_info("HTTP_REFERER", "")
+                "X-Forwarded-For": requests.get('HTTP_X_FORWARDED_FOR'),
+                "User-Agent": requests.get('HTTP_USER_AGENT'),
+                "Referer": requests.get('HTTP_REFERER')
             }
         }
         response = requests.post(f'https://fastapi-redis-crud.vercel.app/create_dict?key={key}', headers=headers, data=json.dumps(body))
