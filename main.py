@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 with st.sidebar:
-    st.title('ZIM Generator')
+    st.title(':blue[ZIM Generator]')
     st.markdown('''
                 ## About 🔥 
                 This LLM-powered app creates html code based on the ZIM template from https://zimjs.com/code.html and the corresponding documentation on https://zimjs.com/docs.html
@@ -39,7 +39,7 @@ def main():
     st.header("💫 ZIM code generator 🔮")
     st.subheader("Use ZIM terms like circle, rectangle, ... see [📄](https://zimjs.com/docs.html)")
     st.markdown('''
-                Examples:
+                :blue[Examples:]
                 - A blue rectangle. Center it on stage
                 - 3 circles within each other. Biggest red, middle green, smallest black
                 - use circles and rectangles to build something that looks like an apple
