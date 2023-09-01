@@ -44,6 +44,7 @@ def main():
                 - 3 circles within each other. Biggest red, middle green, smallest black
                 - use circles and rectangles to build something that looks like an apple
                 - use an emitter that emits pink circles
+                - a blue Blob. Animate its size with .sca(2) in a rewinding loop
                 - etc.
                 ''')
     query = st.text_input('💬 :red[Enter what you want the AI to build:]')
